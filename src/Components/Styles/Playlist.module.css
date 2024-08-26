@@ -1,0 +1,21 @@
+.playlist {
+    border-width: 2rem;
+    border-color: white;
+    width: 20%;
+    margin-top: 1.4rem;
+}
+
+.name {
+    height: 4rem;
+    background-color: black;
+    border: 0;
+    color: whitesmoke;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.save {
+    background-color: lightgreen;
+    color: black;
+    border-radius: 5px;
+}

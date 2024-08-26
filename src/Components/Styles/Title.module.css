@@ -1,0 +1,9 @@
+.title {
+    display: flex;
+    justify-content: center;
+
+}
+
+.title h1 {
+    color: whitesmoke;
+}

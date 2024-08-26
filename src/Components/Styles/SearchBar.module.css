@@ -1,0 +1,22 @@
+.searchBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.songSearch {
+    margin-bottom: 2rem;
+    width: 50%;
+    height: 2rem;
+    border-radius: 4px;
+}
+
+.submit {
+    background-color: lightgreen;
+    border-radius: 10px;
+    height: 2rem;
+    width: 10%;
+    color: black;
+    font-weight: bolder;
+}
