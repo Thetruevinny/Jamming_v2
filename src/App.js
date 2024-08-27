@@ -5,9 +5,9 @@ import SearchBar from './Components/SearchBar.js';
 import Playlist from './Components/Playlist.js';
 import Results from './Components/Results.js';
 import React, {useState , useEffect} from 'react';
-import getToken from './Components/Api.js';
 
 function App() {
+
   const initialResults = [
     {
       id: 0,
@@ -33,17 +33,20 @@ function App() {
   const [results, setResults] = useState(initialResults);
   const [playlist, setPlaylist] = useState(added);
   const [search, setSearch] = useState('');
-  const [tokenInfo, setTokenInfo] = useState([]);
+  const [tokenInfo, setTokenInfo] = useState();
 
+  // Setting Search value to input field in searchbar
   function searchChange(event) {
     setSearch(event.target.value);
   };
 
+  // To remove token after expires
   useEffect(() => {
-    const tokenObj = getToken();
-    setTokenInfo(prev => [...prev, tokenObj]);
-  }, []);
-
+    if (tokenInfo) {
+      alert(tokenInfo.access_token);
+      setInterval(setTokenInfo(), tokenInfo.expires_in);
+    };
+  }, [tokenInfo]);
 
   return (
     <div className="App">
@@ -51,7 +54,7 @@ function App() {
         <Title />
       </header>
       <main className="App-body">
-        <SearchBar  search={search} onChangeHandler={searchChange}/>
+        <SearchBar  search={search} onChangeHandler={searchChange} setTokenInfo={setTokenInfo} tokenInfo={tokenInfo}/>
         <div className='Main-Content'>
           <Playlist added={playlist} setPlaylist={setPlaylist}/>
           <Results results={results} playlist={playlist} setPlaylist={setPlaylist}/>

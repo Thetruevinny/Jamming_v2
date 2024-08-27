@@ -1,5 +1,4 @@
-// import resolve.fallback: { "buffer": false };
-global.Buffer = require('buffer').Buffer;
+global.Buffer = global.Buffer || require('buffer').Buffer;
 
 const client_id = 'fa315daf73f7469191fd1b251e34917c';
 const client_secret = 'e118741e68dd4649aa3e38727088ec71';
@@ -15,7 +14,8 @@ function generateRandomString(num) {
     return randString;
 };
 
-async function getToken() {
+// Generating Access Token when user starts the session.
+async function getToken(setTokenInfo) {
     const response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       body: new URLSearchParams({
@@ -26,8 +26,11 @@ async function getToken() {
         'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64')),
       },
     });
-  
-    return await response.json();
+
+    if (response.ok) {
+        const tokenObj = await response.json();
+        setTokenInfo(tokenObj);
+    }
   };
 
 async function SearchCall(search) {
@@ -51,7 +54,5 @@ async function SearchCall(search) {
     };
 
 };
-
-console.log(getToken());
 
 export default getToken;
