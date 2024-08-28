@@ -33,21 +33,31 @@ async function getToken(setTokenInfo) {
     }
   };
 
-async function SearchCall(search) {
+async function SearchCall(search, tokenInfo, setResults) {
+    search = search.replace(' ', '+');
     const URL = `https://api.spotify.com/v1/search?query=${search}&type=track&offset=0&limit=10`;
-    const encoded_uri = encodeURI(URL);
+    // const encoded_uri = encodeURI(URL);
+    alert(tokenInfo.access_token);
     try {
-        const response = await fetch(encoded_uri);
+        const response = await fetch(URL, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + tokenInfo.access_token
+            }
+        });
+
         if (response.ok) {
             const jsonResponse = await response.json();
             const resultsArray = jsonResponse.tracks.items.map(track => {
                 return {
                     id: track.id,
                     song: track.name,
-                    artist: track.artists.name,
+                    artist: track.artists[0].name,
                     album: track.album.name
                 };
             });
+            alert(resultsArray);
+            setResults(resultsArray);
         }
     } catch (error) {
         console.log(error);
@@ -55,4 +65,4 @@ async function SearchCall(search) {
 
 };
 
-export default getToken;
+export { getToken, SearchCall };

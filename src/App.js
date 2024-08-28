@@ -40,11 +40,12 @@ function App() {
     setSearch(event.target.value);
   };
 
-  // To remove token after expires
+  // To remove token after expires, issue to check later.
   useEffect(() => {
     if (tokenInfo) {
       alert(tokenInfo.access_token);
-      setInterval(setTokenInfo(), tokenInfo.expires_in);
+      const time = tokenInfo.expires_in * 1000;
+      setTimeout(() => {setTokenInfo()}, time);
     };
   }, [tokenInfo]);
 
@@ -54,7 +55,14 @@ function App() {
         <Title />
       </header>
       <main className="App-body">
-        <SearchBar  search={search} onChangeHandler={searchChange} setTokenInfo={setTokenInfo} tokenInfo={tokenInfo}/>
+        <SearchBar  
+          search={search}
+          setSearch = {setSearch}
+          onChangeHandler={searchChange} 
+          setTokenInfo={setTokenInfo} 
+          tokenInfo={tokenInfo} 
+          setResults={setResults}
+        />
         <div className='Main-Content'>
           <Playlist added={playlist} setPlaylist={setPlaylist}/>
           <Results results={results} playlist={playlist} setPlaylist={setPlaylist}/>
