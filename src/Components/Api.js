@@ -33,11 +33,12 @@ async function getToken(setTokenInfo) {
     }
   };
 
+
+// Function to pull track data from spotify
 async function SearchCall(search, tokenInfo, setResults) {
     search = search.replace(' ', '+');
     const URL = `https://api.spotify.com/v1/search?query=${search}&type=track&offset=0&limit=10`;
-    // const encoded_uri = encodeURI(URL);
-    alert(tokenInfo.access_token);
+    
     try {
         const response = await fetch(URL, {
             method: 'GET',
@@ -53,10 +54,10 @@ async function SearchCall(search, tokenInfo, setResults) {
                     id: track.id,
                     song: track.name,
                     artist: track.artists[0].name,
-                    album: track.album.name
+                    album: track.album.name,
+                    uri: track.uri
                 };
             });
-            alert(resultsArray);
             setResults(resultsArray);
         }
     } catch (error) {
@@ -65,4 +66,106 @@ async function SearchCall(search, tokenInfo, setResults) {
 
 };
 
-export { getToken, SearchCall };
+const redirectUri = 'http://localhost:3000/'; // Have to add this to your accepted Spotify redirect URIs on the Spotify API.
+let accessToken;
+let userId;
+let randState = generateRandomString(16);
+
+function getAccessToken() {
+    if (accessToken) {
+      return accessToken;
+    }
+
+    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
+    const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
+    if (accessTokenMatch && expiresInMatch) {
+      accessToken = accessTokenMatch[1];
+      const expiresIn = Number(expiresInMatch[1]);
+      window.setTimeout(() => accessToken = '', expiresIn * 1000);
+      window.history.pushState('Access Token', null, '/'); // This clears the parameters, allowing us to grab a new access token when it expires.
+      return accessToken;
+    } else {
+      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}&state=${randState}`;
+      window.location = accessUrl;
+    }
+};
+
+// Function to retrieve clientID from Spotify API
+async function saveToSpotify(playlistName, playlist) {
+
+    let url = 'https://api.spotify.com/v1/me';
+
+    // Get access token which allows to acces user Info
+    accessToken = getAccessToken();
+    let playlistId;
+
+    // Obtain user ID
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+        });
+
+
+        if (response.ok) {
+            const clientObj = await response.json();
+            userId = clientObj.id;
+        }
+
+    } catch (error) {
+        console.log(error);
+    };
+
+    url = `https://api.spotify.com/v1/users/${userId}/playlists`;
+
+
+    // Creating the Playlist
+    try {
+        const responseCreatePL = await fetch(url, {
+            method: 'POST',
+            headers: {
+               'Authorization': 'Bearer ' + accessToken,
+               'Content-type': 'application/json' 
+            },
+            body: JSON.stringify({
+                'name': playlistName,
+                'description': 'Playlist Created from Jamming Web Application',
+            })
+        });
+
+        if (responseCreatePL.ok) {
+            const playlistObj = await responseCreatePL.json();
+            playlistId = playlistObj.id;
+        };
+
+    } catch (error) {
+        console.log(error);
+    };
+
+    const uri_list = playlist.map(track => track.uri);
+
+    alert(playlistId);
+
+    url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+
+    try {
+        const trackResponse = await fetch(url, {
+            method: 'POST',
+            headers: {
+               'Authorization': 'Bearer ' + accessToken,
+               'Content-type': 'application/json' 
+            },
+            body: JSON.stringify({
+                uris: uri_list
+            })
+        });
+
+        alert(trackResponse.ok);
+    } catch (error) {
+        console.log(error);
+    };
+};
+
+export { getToken, SearchCall, saveToSpotify, getAccessToken };

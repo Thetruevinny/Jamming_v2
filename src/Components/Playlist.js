@@ -10,10 +10,16 @@ function Playlist(props) {
 
     return (
         <div className={Styles.playlist}>
-            <input type='text' placeholder='Playlist Name?' className={Styles.name}></input>
+            <input 
+                type='text' 
+                placeholder='Playlist Name?' 
+                className={Styles.name} 
+                onChange={props.onChangeHandler}
+                value={props.name}
+            ></input>
             <hr></hr>
             <Tracklist tracks={props.added} type='playlist' remove={remove}/>
-            <button className={Styles.save}>Save to Spotify</button>
+            <button className={Styles.save} onClick={props.onClickHandler}>Save to Spotify</button>
         </div>
     );
 };
