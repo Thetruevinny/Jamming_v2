@@ -14,7 +14,7 @@ function Results(props) {
     return (
         <div className={Styles.results}>
             <h2>Results</h2>
-            <hr></hr>
+            <hr className='Styles.line'></hr>
             <Tracklist tracks={props.results} type='results' add={add} />
         </div>
     );

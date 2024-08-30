@@ -1,5 +1,10 @@
 .results {
-    width: 20%;
-    border: 1rem;
+    width: 30%;
+    border: 0.1rem solid white;
     border-color: white;
+    border-radius: 4rem;
+}
+
+.line {
+    width: 100%;
 }

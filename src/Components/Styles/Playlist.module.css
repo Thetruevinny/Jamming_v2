@@ -1,8 +1,9 @@
 .playlist {
-    border-width: 2rem;
+    border: 0.1rem solid white;
     border-color: white;
-    width: 20%;
+    width: 30%;
     margin-top: 1.4rem;
+    border-radius: 4rem;
 }
 
 .name {
@@ -11,7 +12,8 @@
     border: 0;
     color: whitesmoke;
     font-weight: bolder;
-    font-size: 2rem;
+    font-size: 1.75rem;
+    text-align: center;
 }
 
 .save {

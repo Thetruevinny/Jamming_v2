@@ -91,7 +91,7 @@ function getAccessToken() {
 };
 
 // Function to retrieve clientID from Spotify API
-async function saveToSpotify(playlistName, playlist) {
+async function saveToSpotify(playlistName, playlist, setPlaylist, setResults) {
 
     let url = 'https://api.spotify.com/v1/me';
 
@@ -101,6 +101,7 @@ async function saveToSpotify(playlistName, playlist) {
 
     // Obtain user ID
     try {
+        alert('Function Called');
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -146,7 +147,6 @@ async function saveToSpotify(playlistName, playlist) {
 
     const uri_list = playlist.map(track => track.uri);
 
-    alert(playlistId);
 
     url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
 
@@ -162,7 +162,11 @@ async function saveToSpotify(playlistName, playlist) {
             })
         });
 
-        alert(trackResponse.ok);
+        if (trackResponse.ok) {
+            setPlaylist([]);
+            setResults([]);
+        };
+
     } catch (error) {
         console.log(error);
     };

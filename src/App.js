@@ -50,8 +50,7 @@ function App() {
   // Saving Playlist to Spotify account
   function savePlaylist(event) {
     event.preventDefault();
-    alert('SavePlaylist event triggered');
-    saveToSpotify(playlistName, playlist);
+    saveToSpotify(playlistName, playlist, setPlaylist, setResults);
   };
 
   // To remove token after expires, issue to check later.
