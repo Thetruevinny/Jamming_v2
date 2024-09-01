@@ -9,28 +9,6 @@ import { saveToSpotify, getToken, getAccessToken } from './Components/Api.js';
 
 function App() {
 
-  // const initialResults = [
-  //   {
-  //     id: 0,
-  //     song: 'Billy Jean',
-  //     artist: 'Michael Jackson',
-  //     album: 'Thriller'
-  //   },
-  //   {
-  //     id: 1,
-  //     song: 'Mockingbird',
-  //     artist: 'Eminem',
-  //     album: 'Encore'
-  //   }
-  // ];
-
-  // const added = [{
-  //   id: 0,
-  //   song: 'Waka Waka',
-  //   artist: 'Shakira',
-  //   album: 'Sale el Sol'
-  // }];
-
   const [results, setResults] = useState([]);
   const [playlist, setPlaylist] = useState([]);
   const [search, setSearch] = useState('');

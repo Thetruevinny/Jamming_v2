@@ -101,7 +101,6 @@ async function saveToSpotify(playlistName, playlist, setPlaylist, setResults) {
 
     // Obtain user ID
     try {
-        alert('Function Called');
         const response = await fetch(url, {
             method: 'GET',
             headers: {
