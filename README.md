@@ -1,70 +1,23 @@
-# Getting Started with Create React App
+# Jamming
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Summary
+The goal of the project was to design a website with React which enabled the user to search up songs to add to a custom playlist. This playlist could then be saved to the user's individual Spotify account. 
 
-## Available Scripts
+## Project Objectives
+1. Build a Web app with React.
+1. Version control your application with Git and host the repository on GitHub.
+1. Integrate with the Spotify API.
 
-In the project directory, you can run:
+## Features
+### Searchbar
+This is located at the top of the page and consists of an text input field and a search button. Users may type song titles into the input field and click search to see a list of songs that match.
+### Results
+The results field contains a list of all the songs which match the search criteria. There is an add button to add each song to the playlist which is positioned to the left of results.
+### Playlist
+The playlist has an input field which allows the user to type in a custom playlist name. Under this is a list of all the songs the user has added to the playlist. Each song has a remove button which can be used to remove songs from the playlist. At the bottom there is a save to Spotify button which can be used to save the playlist to the user's Spotify account.
+### API interaction
+The spotify API has different types of tokens which allow different types of access. The first token used in this application is client credentials access token. This is used when the user searches for songs. The second token used is the implicit grant flow token, which allows the application to save the custom playlist to the user's Spotify account. The reason I have used two types is for user experience. As the user may not want to give access to his account when he is just searching for songs and the first token call is done when the application renders without reqiuring user input.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Future Work
+- Currently when the user clicks save to Spotify, he is redirected to login to his Spotify account. When he returns to the application all work is lost. As I would like to only asks the user to login if he wants to save the playlist to Spotify, in future I will add a login button with text explaining its use or find a way to have the information retained when the user is redirected to the site.
+- I will add three radio buttons to allow the user to choose between searching for tracks, albums and artists.
