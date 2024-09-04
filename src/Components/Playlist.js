@@ -9,7 +9,7 @@ function Playlist(props) {
     };
 
     return (
-        <div className={Styles.playlist}>
+        <div className={Styles.playlist} data-testid='playlist-1'>
             <input 
                 type='text' 
                 placeholder='Playlist Name?' 

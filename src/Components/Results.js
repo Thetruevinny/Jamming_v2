@@ -12,7 +12,7 @@ function Results(props) {
     };
 
     return (
-        <div className={Styles.results}>
+        <div className={Styles.results} data-testid='results-1'>
             <h2>Results</h2>
             <hr className='Styles.line'></hr>
             <Tracklist tracks={props.results} type='results' add={add} />

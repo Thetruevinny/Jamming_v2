@@ -40,7 +40,7 @@ function App() {
   }, [tokenInfo]);
 
   return (
-    <div className="App">
+    <div className="App" data-testid='App-1'>
       <header className="App-header">
         <Title />
       </header>
