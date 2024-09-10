@@ -6,7 +6,7 @@ function Results(props) {
 
     function add(event) {
         const id = event.target.id;
-        const newSong = props.results.find(song => song.id == id);
+        const newSong = props.results.find(song => song.id === id);
         newSong.id = props.playlist.length;
         props.setPlaylist(prev => [newSong, ...prev]);
     };
